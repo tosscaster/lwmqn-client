@@ -1,1 +1,1 @@
-# lwmqn-device
+# lwmqn-device demo
