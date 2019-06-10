@@ -33,6 +33,7 @@ qnode3 = new MqttNode('d03', so3);
 qnode4 = new MqttNode('d04', so4);
 
 qnode1.on('ready', function () {
+    console.log(">> MQTT d01 node is ready. But not connect to a server yet");
     var so = qnode1.getSmartObject();
     setInterval(function () {
         so.write('temperature', 0, 'sensorValue', randomFloat(18, 26), function (err, val) {});
@@ -44,22 +45,74 @@ qnode1.on('ready', function () {
     setInterval(function () {
         so.write('illuminance', 1, 'sensorValue', randomInt(50, 1000), function (err, val) {});
     }, 8000);
+    qnode1.emit('connect');
 });
 
 qnode1.on('error', function (err) {
     console.log(err);
 });
 
+qnode1.on("registered", function() {
+  console.log(">> MQTT d01 node is registered to a server");
+});
+
+qnode1.on("login", function() {
+  console.log(">> MQTT d01 node logs in the network");
+});
+
 qnode2.on('ready', function () {
+    console.log(">> MQTT d02 node is ready. But not connect to a server yet");
     // switch, nothing auto change
+    qnode2.emit("connect");
+});
+
+qnode2.on("error", function(err) {
+  console.log(err);
+});
+
+qnode2.on("registered", function() {
+  console.log(">> MQTT d02 node is registered to a server");
+});
+
+qnode2.on("login", function() {
+  console.log(">> MQTT d02 node logs in the network");
 });
 
 qnode3.on('ready', function () {
+    console.log(">> MQTT d03 node is ready. But not connect to a server yet");
     // buzzer and light, nothing auto change
+    qnode3.emit("connect");
 });
 
+qnode3.on("error", function(err) {
+  console.log(err);
+});
+
+qnode3.on("registered", function() {
+  console.log(">> MQTT d03 node is registered to a server");
+});
+
+qnode3.on("login", function() {
+  console.log(">> MQTT d03 node logs in the network");
+});
+
+
 qnode4.on('ready', function () {
+    console.log(">> MQTT d04 node is ready. But not connect to a server yet");
     // pir and flame, nothing auto change
+    qnode4.emit("connect");
+});
+
+qnode4.on("error", function(err) {
+  console.log(err);
+});
+
+qnode4.on("registered", function() {
+  console.log(">> MQTT d04 node is registered to a server");
+});
+
+qnode4.on("login", function() {
+  console.log(">> MQTT d04 node logs in the network");
 });
 
 function randomFloat(min, max) {
